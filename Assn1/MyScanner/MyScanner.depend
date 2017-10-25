@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1508881157 source:c:\users\maacp\desktop\academics\cse326\assn1\myscanner\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
