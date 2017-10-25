@@ -1,0 +1,6 @@
+if
+	(void + avoid++) := c-- 0x34 567 890 .
+void a := "nsu"
+char v := 'c'
+real x := 677.7 #
+
