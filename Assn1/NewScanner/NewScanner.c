@@ -25,6 +25,7 @@ int main(void)
 
     int maybe_int = 0;
     int maybe_real = 0;
+    int donewithreal = 0;
     int maybe_id = 0;
     int maybe_char = 0;
     int maybe_str = 0;
@@ -36,6 +37,16 @@ int main(void)
 
     while (index < total) {
         printf("\n%c\t", code[index]);
+
+        if(!isdigit(code[index]) && code[index] != '.') {
+            if(maybe_int) {
+                printf("ILIT ");
+                maybe_int = 0;
+                maybe_real = 0;
+                index++;
+                continue;
+            }
+        }
 
         if(code[index] == ' ') {
             index++;
@@ -57,10 +68,14 @@ int main(void)
             continue;
         }
         if(code[index] == '.') {
-            if(!maybe_int || !maybe_real) {
+            if(!maybe_int) { // No digit before DOT
                 printf("DOT ");
                 index++;
                 continue;
+            } else {
+                maybe_int = 0;
+                maybe_real = 1;
+                printf("RLIT ");
             }
         }
 
@@ -145,39 +160,36 @@ int main(void)
 
         else if(code[index] == '0' && code[index + 1] == 'x') {
             printf("HLIT ");
-            while(code[index] != ' ' || code[index] != '\n')
-                index++;
+            index += 2;
+            while(isdigit(code[index]) || code[index] == 'a' || code[index] == 'b' || code[index] == 'c'
+                  || code[index] == 'd' || code[index] == 'e' || code[index] == 'f')
+                    index++;
             continue;
         } else if(isdigit(code[index])) {
-            maybe_int = 1;
+            if(!maybe_int && !maybe_real)
+                maybe_int = 1;
             index++;
-            while(isdigit(code[index] || code[index] == '.')) {
-                if(code[index] == '.') {
-                    maybe_real = 1;
-                    maybe_int = 0;
-                }
-                index++;
-            }
-            if(maybe_real) {
-                printf("RLIT ");
-                maybe_int = 0;
-                maybe_real = 0;
-            } else {
-                printf("ILIT ");
-            }
         } else if(code[index] == ':' && code[index + 1] == '=') {
             printf("ASSIGN ");
             index += 2;
             continue;
         } else if(code[index] == '"') {
-            if(isalpha(code[index + 1]) || isdigit(code[index + 1]) || code[index] == '_') {
-                printf("SLIT ");
-                while(code[index] != '"')
-                    index++;
-            } else {
+            while(index < total) {
+                index++;
+                if(code[index] == '"') {
+                    maybe_str = 1;
+                    break;
+                }
+            }
+            if (!maybe_str) {
                 printf("DOUBLEQ ");
+                index++;
+            } else {
+                printf("SLIT ");
+                index++;
             }
             continue;
+
         } else if(code[index] == 39) {
             if(code[index + 2] == 39) {
                 printf("CLIT ");
@@ -189,6 +201,7 @@ int main(void)
             continue;
         } else {
             printf("ERROR ");
+            printf("\nProblem at character: %d", index);
             return 1;
         }
     }

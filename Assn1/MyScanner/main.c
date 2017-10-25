@@ -330,11 +330,11 @@ int main()
             if(c == ';')
                 printf("SEMI ");
             if(c == '*')
-                printf("PROD");
+                printf("PROD ");
             if(c == '/')
-                printf("DIV");
+                printf("DIV ");
             if(c == '%')
-                printf("REM");
+                printf("REM ");
             if(c == '.') {
                 if(maybe_int) {
                     maybe_real++;
