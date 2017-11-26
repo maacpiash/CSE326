@@ -1405,7 +1405,12 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 13:
+        case 2:
+#line 29 "g99.y"
+    { if (yychar == YYEOF) printf("\nAccepted!\n"); }
+    break;
+
+  case 13:
 #line 39 "g99.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
@@ -1492,7 +1497,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1496 "y.tab.c"
+#line 1501 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

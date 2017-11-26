@@ -26,7 +26,7 @@
 
 %%
 
-prog: STMTS
+prog: STMTS { if (yychar == YYEOF) printf("\nAccepted!\n"); }
 STMTS:	| STMT STMTS
 STMT: DTYPE ID IDLIST SEMI
 		| ID ASSIGN EXPR SEMI 
